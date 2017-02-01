@@ -24,8 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomePresenter {
 
     public static final String TAG = HomePresenter.class.getSimpleName();
+    // private variable
     IHomeView view;
+    // private variable, I didn't know about this class, thanks
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    // 1. private variable
+    // 2. use List interface
     ArrayList<Restaurants> restaurantsList;
 
     public HomePresenter(IHomeView view){
@@ -33,6 +37,7 @@ public class HomePresenter {
     }
 
     public void requestJson(){
+        // this should be built once at the start of the app, you could attach it to JustEatApplication and pass it in as a dependency to the presenter
         RestaurantServiceAPI restaurantServiceAPI = new Retrofit.Builder()
                 .baseUrl(Util.SERVICE_END_POINT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -52,6 +57,7 @@ public class HomePresenter {
     }
 
     private void handleResponse(ArrayList<Restaurants> restaurants) {
+        // why create a new list? Pass straight to updateView
         restaurantsList = new ArrayList<>(restaurants);
         view.updateView(restaurants);
 
