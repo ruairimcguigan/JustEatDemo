@@ -11,6 +11,7 @@ import eat.just.com.justeatdemo.models.Restaurants;
 public interface IHomeView {
 
     void fetchData();
+    // use List interface 
     void updateView(ArrayList<Restaurants> data);
 
 }
