@@ -1,27 +1,34 @@
 package eat.just.com.justeatdemo.main;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import eat.just.com.justeatdemo.R;
-import eat.just.com.justeatdemo.models.Restaurants;
+import eat.just.com.justeatdemo.models.Restaurant;
 
 /**
  * Created by rmcg2 on 31/01/2017.
  */
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    private ArrayList<Restaurants> restaurants;
 
-    public HomeAdapter(ArrayList<Restaurants> dataList) {
+    private List<Restaurant> restaurants;
+    private Context context;
+
+    public HomeAdapter(List<Restaurant> dataList) {
         restaurants = dataList;
     }
 
+//    public void populateAdapter(List<Restaurant> dataList){
+//        this.restaurants = dataList;
+//        this.notifyDataSetChanged();
+//    }
 
     @Override
     public HomeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,14 +39,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(HomeAdapter.ViewHolder holder, int position) {
-        holder.name.setText(restaurants.get(position).getName());
-        holder.address.setText(restaurants.get(position).getAddress());
-        holder.rating.setText(String.valueOf(restaurants.get(position).getName()));
+        Restaurant restaurant = restaurants.get(position);
+        holder.name.setText(restaurant.getName());
+        holder.address.setText(restaurant.getAddress());
+        holder.rating.setText(String.valueOf(restaurant.getRatingAverage()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return restaurants.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
  * Created by rmcg2 on 31/01/2017.
  */
 
-public class Restaurants {
+public class Restaurant {
     private String Name;
     private String Address;
     private String Postcode;

@@ -6,15 +6,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import eat.just.com.justeatdemo.R;
-import eat.just.com.justeatdemo.models.Restaurants;
+import eat.just.com.justeatdemo.models.Restaurant;
 
-public class HomeActivity extends AppCompatActivity implements IHomeView {
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
-    HomePresenter presenter;
-    RecyclerView recyclerView;
-    HomeAdapter adapter;
+    private HomePresenter presenter;
+    private RecyclerView recyclerView;
+    private HomeAdapter adapter;
+    private List<Restaurant> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         setContentView(R.layout.activity_main);
         attachPresenter();
         initView();
-        fetchData();
+        setListAdapter();
+        requestRestaurantData();
+    }
+
+    private void setListAdapter() {
+        adapter = new HomeAdapter(restaurantList);
+        recyclerView.setAdapter(adapter);
     }
 
     private void attachPresenter() {
@@ -37,14 +45,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     }
 
     @Override
-    public void fetchData() {
+    public void requestRestaurantData() {
         presenter.requestJson();
     }
 
     @Override
-    public void updateView(ArrayList<Restaurants> data) {
-        adapter = new HomeAdapter(data);
-        recyclerView.setAdapter(adapter);
+    public void updateView(List<Restaurant> data) {
+        restaurantList.addAll(data);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

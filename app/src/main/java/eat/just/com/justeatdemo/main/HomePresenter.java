@@ -7,8 +7,9 @@ import android.widget.Toast;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import eat.just.com.justeatdemo.models.Restaurants;
+import eat.just.com.justeatdemo.models.Restaurant;
 import eat.just.com.justeatdemo.networking.RestaurantServiceAPI;
 import eat.just.com.justeatdemo.util.Util;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,12 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePresenter {
 
-    public static final String TAG = HomePresenter.class.getSimpleName();
-    IHomeView view;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ArrayList<Restaurants> restaurantsList;
+    private static final String TAG = HomePresenter.class.getSimpleName();
+    private HomeView view;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ArrayList<Restaurant> restaurantsList;
 
-    public HomePresenter(IHomeView view){
+    public HomePresenter(HomeView view){
         this.view = view;
     }
 
@@ -39,11 +40,6 @@ public class HomePresenter {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RestaurantServiceAPI.class);
 
-//        compositeDisposable.add(restaurantServiceAPI.getRestaurantsList()
-//        .observeOn(AndroidSchedulers.mainThread())
-//        .subscribeOn(Schedulers.io())
-//        .subscribe(this::handleResponse, this::handleError));
-
         compositeDisposable.add(restaurantServiceAPI.getRestaurantsList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -51,7 +47,7 @@ public class HomePresenter {
 
     }
 
-    private void handleResponse(ArrayList<Restaurants> restaurants) {
+    private void handleResponse(List<Restaurant> restaurants) {
         restaurantsList = new ArrayList<>(restaurants);
         view.updateView(restaurants);
 

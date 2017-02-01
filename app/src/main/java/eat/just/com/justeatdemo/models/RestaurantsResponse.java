@@ -14,7 +14,7 @@ import java.util.List;
 
 public class RestaurantsResponse {
 
-    List<Restaurants> restaurants;
+    List<Restaurant> restaurants;
 
     /**
      * a public constructor may be needed to initialize the list. To avoid null
