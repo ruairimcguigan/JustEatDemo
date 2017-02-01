@@ -1,6 +1,7 @@
 package eat.just.com.justeatdemo.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -22,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePresenter {
 
+    public static final String TAG = HomePresenter.class.getSimpleName();
     IHomeView view;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ArrayList<Restaurants> restaurantsList;
@@ -57,6 +59,7 @@ public class HomePresenter {
 
     private void handleError(Throwable error) {
         Toast.makeText((Context) view, "Error "+error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "handleError: Error: " +error.getLocalizedMessage());
     }
 
     public void clearDisposable(){

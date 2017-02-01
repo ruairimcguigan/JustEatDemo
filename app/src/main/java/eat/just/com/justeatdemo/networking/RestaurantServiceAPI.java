@@ -15,6 +15,6 @@ public interface RestaurantServiceAPI {
 
     @Headers({"Accept-Tenant: uk", "Accept-Language: en-GB",
             "Authorization: Basic VGVjaFRlc3RBUEk6dXNlcjI=", "Host: public.je-apis.com" })
-    @GET("/restaurants?q=")
+    @GET("/restaurants?q=se19")
     Observable<ArrayList<Restaurants>> getRestaurantsList();
 }
