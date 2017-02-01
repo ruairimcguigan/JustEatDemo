@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import eat.just.com.justeatdemo.R;
 import eat.just.com.justeatdemo.models.Restaurants;
 
+// "I" prefix is not needed here
 public class HomeActivity extends AppCompatActivity implements IHomeView {
 
+    // these variables should be private 
     HomePresenter presenter;
     RecyclerView recyclerView;
     HomeAdapter adapter;
@@ -38,11 +40,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     @Override
     public void fetchData() {
+        // this should have a more descriptive name, what is the presenter actually doing here? Fetching restuarants?
         presenter.requestJson();
     }
 
     @Override
     public void updateView(ArrayList<Restaurants> data) {
+        // 1. do not recreatd the adapter each time, create a method called populate(ArrayList<Restaurants> data) with the data
+        // 2. use base type List instead of ArrayList
         adapter = new HomeAdapter(data);
         recyclerView.setAdapter(adapter);
     }
